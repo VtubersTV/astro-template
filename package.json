@@ -1,0 +1,29 @@
+{
+  "name": "astro-template",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build && npm run obfuscate",
+    "preview": "astro preview",
+    "astro": "astro",
+    "obfuscate": "node ./scripts/obfuscate.cjs ./.vercel/output/static/assets"
+  },
+  "dependencies": {
+    "astro": "^4.6.3",
+    "@astrojs/check": "^0.5.10",
+    "typescript": "^5.4.5",
+    "@astrojs/mdx": "^2.1.1",
+    "@astrojs/node": "^8.2.0",
+    "@astrojs/sitemap": "^3.0.5",
+    "@astrojs/vercel": "^7.3.0",
+    "astro-expressive-code": "^0.34.1",
+    "axios": "^1.6.0",
+    "rehype-pretty-code": "^0.12.0",
+    "remark-expressive-code": "^0.32.4",
+    "remark-toc": "^9.0.0",
+    "developer-toolkit-utils": "^1.0.9",
+    "javascript-obfuscator": "^4.1.0"
+  }
+}

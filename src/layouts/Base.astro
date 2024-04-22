@@ -1,0 +1,123 @@
+---
+interface Props {
+  title: string[];
+  description?: string;
+  img?: string;
+  favicon?: string;
+  video?: string;
+  ThemeColor?: string;
+  keywords?: string;
+  scripts?: string[];
+  css?: string[];
+}
+
+const {
+  title,
+  ThemeColor,
+  description,
+  favicon,
+  img,
+  keywords,
+  video,
+  scripts,
+  css,
+} = Astro.props;
+
+const FaviconExt = () => {
+  const iconExt = favicon?.split(".").pop()?.toLowerCase();
+
+  switch (iconExt) {
+    case "ico":
+      return "image/x-icon";
+    case "png":
+      return "image/png";
+    case "svg":
+      return "image/svg+xml";
+    case "gif":
+      return "image/gif";
+    case "jpg":
+    case "jpeg":
+      return "image/jpeg";
+    default:
+      return "image/x-icon"; // Default fallback
+  }
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type={FaviconExt()} href={favicon || "/favicon.jpg"} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title.join(" | ")} | Vtubers TV</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    {css?.map((c: any) => <link rel="stylesheet" href={c} />)}
+    <script is:inline src="/assets/js/plugins/console.js"></script>
+    <script is:inline src="/assets/js/plugins/date.timer.js"></script>
+    <script is:inline src="/assets/js/plugins/cookies.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Vtubers TV" />
+    <meta property="og:title" content=`${title.join(" | ")} | Vtubers TV` />
+    {
+      video ? null : (
+        <meta
+          property="og:description"
+          content={
+            description ||
+            "Explore the next frontier of digital entertainment on vtubers.tv, the premier platform for virtual content creation! Immerse yourself in the world of VTubers (virtual YouTubers), where digital avatars come to life, delivering captivating performances and interactive experiences. vtubers.tv is your gateway to a vibrant community of virtual creators, offering a diverse array of content from live showcases to engaging livestreams."
+          }
+        />
+      )
+    }
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content=`${title.join(" | ")} | Vtubers TV` />
+    <meta property="og:site_name" content="Vtubers TV" />
+    <meta property="og:type" content="video.other" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
+    <meta property="og:url" content={Astro.url} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@VtubersWiki" />
+    <meta name="twitter:creator" content="@VtubersWiki" />
+    <meta name="twitter:title" content=`${title.join(" | ")} | Vtubers TV` />
+    <meta name="twitter:description" content={`${description}`} />
+    {
+      video ? (
+        <>
+          <meta property="og:video" content={video} />
+          <meta property="og:video:url" content={video} />
+          <meta property="og:video:type" content="video/mp4" />
+          <meta property="og:video:width" content="1280" />
+          <meta property="og:video:height" content="720" />
+        </>
+      ) : (
+        <meta name="twitter:image" content={img || `${import.meta.env.PUBLIC_CDN_URL}/images/Banners/seo.jpg`} />
+        <meta property="og:image" content={img || `${import.meta.env.PUBLIC_CDN_URL}/images/Banners/seo.jpg`} />
+      )
+    }
+    <meta name="theme-color" content={ThemeColor || "#ff5c5c"} />
+    <link rel="manifest" href="/manifest.json" />
+    <meta
+      name="keywords"
+      content={`${keywords ? `${keywords}, ` : ""}vtuber, virtual YouTuber, vtubers.tv, virtual streaming, virtual content, virtual entertainment, virtual avatar, virtual community, virtual content creation, virtual personality, virtual world, online virtual streaming, digital avatar, virtual events, virtual social platform, virtual content platform, virtual collaboration, virtual interaction, virtual fanbase, virtual performance, virtual reality, digital entertainment, online avatar, livestreaming, virtual communication, interactive virtual experiences, virtual influencers, digital presence, online persona, animated streamer, virtual talent, virtual broadcasting, digital content creation, virtual showcase, virtual presence, animated personality, virtual media, virtual creativity, virtual experience, virtual stage, virtual audience, digital performance, virtual character, online presence, avatar streaming, virtual storytelling, virtual engagement, digital interaction, virtual talents showcase, virtual content sharing, virtual world building, online entertainment platform, virtual entertainment industry, virtual streaming community, virtual content platform`}
+    />
+    <meta name="author" content="vtubers_tv" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={Astro.url} />
+    <meta name="msapplication-TileColor" content={ThemeColor || "#ff5c5c"} />
+  </head>
+    <slot />
+</html>
