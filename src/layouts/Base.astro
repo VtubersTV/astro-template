@@ -119,5 +119,7 @@ const FaviconExt = () => {
     <link rel="canonical" href={Astro.url} />
     <meta name="msapplication-TileColor" content={ThemeColor || "#ff5c5c"} />
   </head>
-    <slot />
+    <body>
+        <slot />
+    </body>
 </html>
